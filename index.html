@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Happy Print Haus — Online Store</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Bungee+Shade&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --c:#16b0ef; --c2:#88d6e2; --m:#e70181; --y:#f8f210; --k:#000000; --sky:#52aed7; --red:#ea4452; --paper:#fffdf5; --ink:#000000;
+  --shadow:6px 6px 0 var(--k);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito',sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden}
+h1,h2,h3,.bungee{font-family:'Bungee',cursive;font-weight:400;letter-spacing:.5px}
+button{font-family:inherit;cursor:pointer}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+
+/* halftone + squiggles */
+.halftone{background-image:radial-gradient(rgba(0,0,0,.12) 1.4px,transparent 1.6px);background-size:14px 14px}
+
+/* ---------- HEADER ---------- */
+header{position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:4px solid var(--k)}
+.nav{display:flex;align-items:center;gap:16px;height:76px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand svg{width:58px;height:58px}
+.brand .name{font-family:'Bungee';font-size:18px;line-height:1}
+.brand .name small{display:block;font-family:'Nunito';font-weight:800;font-size:11px;letter-spacing:2px;color:var(--m)}
+.links{margin-left:auto;display:flex;gap:6px}
+.links a{text-decoration:none;font-weight:800;padding:8px 12px;border-radius:999px;transition:.2s}
+.links a:hover{background:var(--y)}
+.cartbtn{position:relative;background:var(--k);color:#fff;border:none;border-radius:14px;padding:11px 16px;font-weight:900;display:flex;gap:8px;align-items:center;transition:transform .15s}
+.cartbtn:hover{transform:translateY(-2px) rotate(-2deg)}
+.cartbtn .count{background:var(--m);border-radius:999px;min-width:24px;height:24px;display:grid;place-items:center;font-size:13px}
+.cartbtn.bump{animation:bump .5s}
+@keyframes bump{30%{transform:scale(1.2) rotate(-6deg)}60%{transform:scale(.95)}}
+
+/* ---------- LOGO ANIMATION ---------- */
+.logo .pc{transform-box:fill-box;transform-origin:center;animation:float3 3s ease-in-out infinite}
+.logo .p2{animation-delay:.4s}.logo .p3{animation-delay:.8s}
+@keyframes float3{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-3px) scale(1.08)}}
+.logo .face{transform-box:fill-box;transform-origin:center;animation:tilt 3s ease-in-out infinite}
+@keyframes tilt{0%,100%{transform:rotate(0) translateY(0)}35%,65%{transform:rotate(-4deg) translateY(-1.5px)}}
+.logo .eye{transform-box:fill-box;transform-origin:center;animation:happy 3s ease-in-out infinite}
+@keyframes happy{0%,25%,75%,100%{transform:scaleY(1)}35%,65%{transform:scaleY(.45) translateY(1px)}}
+.logo .house{transform-box:fill-box;transform-origin:bottom center;animation:squash 3s ease-in-out infinite}
+@keyframes squash{0%,100%{transform:scale(1,1)}35%,65%{transform:scale(1.015,.985)}}
+@media (prefers-reduced-motion:reduce){.logo *{animation:none!important}}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;background:var(--sky);border-bottom:4px solid var(--k);overflow:hidden}
+.hero .bgdots{position:absolute;inset:0;opacity:.6}
+.hero-grid>div.reveal{background:var(--y);border:4px solid var(--k);border-radius:22px;padding:30px;box-shadow:10px 10px 0 var(--k);transform:rotate(-1.5deg)}
+.hero-grid{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center;padding:60px 0 70px}
+.sticker{display:inline-block;background:var(--m);color:#fff;font-weight:900;padding:8px 16px;border:3px solid var(--k);border-radius:999px;transform:rotate(-3deg);box-shadow:4px 4px 0 var(--k);font-size:14px}
+.hero h1{font-size:clamp(40px,6vw,76px);line-height:.98;margin:20px 0 18px;color:var(--k)}
+.hero h1 .pop{color:#fff;-webkit-text-stroke:3px var(--k);text-shadow:6px 6px 0 var(--m);display:inline-block}
+.hero h1 .blue{color:var(--c);-webkit-text-stroke:2px var(--k);text-shadow:4px 4px 0 var(--m)}
+.hero p.lead{font-size:20px;font-weight:700;max-width:540px;line-height:1.5}
+.hero p.lead b{background:#fff;padding:0 6px;border:2px solid var(--k);border-radius:6px}
+.ctas{display:flex;gap:14px;margin-top:28px;flex-wrap:wrap}
+.btn{border:3px solid var(--k);border-radius:16px;padding:14px 24px;font-weight:900;font-size:16px;box-shadow:var(--shadow);transition:transform .15s, box-shadow .15s;background:#fff;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.btn:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--k)}
+.btn:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--k)}
+.btn.k{background:var(--k);color:#fff;box-shadow:6px 6px 0 var(--m)}
+.btn.c{background:var(--c);color:#fff}
+.btn.m{background:var(--m);color:#fff}
+.hero-art{position:relative;height:440px}
+.hero-art .biglogo{position:absolute;inset:0;margin:auto;width:340px;height:340px;filter:drop-shadow(10px 10px 0 var(--k))}
+.float{position:absolute;background:#fff;border:3px solid var(--k);border-radius:16px;padding:10px 14px;font-weight:900;box-shadow:4px 4px 0 var(--k);animation:floaty 4s ease-in-out infinite;font-size:14px;white-space:nowrap}
+.f1{top:20px;left:0;background:var(--c);color:#fff}
+.f2{top:70px;right:-10px;background:var(--m);color:#fff;animation-delay:1s}
+.f3{bottom:40px;left:10px;animation-delay:2s}
+.f4{bottom:10px;right:20px;background:var(--k);color:var(--y);animation-delay:.5s}
+@keyframes floaty{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-14px) rotate(3deg)}}
+.zig{position:absolute;width:120px;opacity:.9}
+.bolt{position:absolute;font-size:44px;animation:spin 8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* marquee */
+.marquee{background:var(--k);color:var(--y);overflow:hidden;white-space:nowrap;border-bottom:4px solid var(--k);padding:14px 0}
+.marquee .track{display:inline-block;animation:marq 28s linear infinite;font-family:'Bungee';font-size:20px}
+.marquee span{margin:0 22px}
+.marquee .s{color:var(--m)} .marquee .t{color:var(--c)}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* sections */
+section{padding:80px 0}
+.sec-head{text-align:center;margin-bottom:40px}
+.sec-head .kicker{font-weight:900;color:var(--m);letter-spacing:3px;font-size:13px}
+.sec-head h2{font-size:clamp(30px,4vw,46px);margin-top:6px}
+.sec-head p{max-width:620px;margin:10px auto 0;font-size:17px;font-weight:600;color:#444}
+
+/* services */
+.svc{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.svc .card{border:4px solid var(--k);border-radius:24px;padding:28px;box-shadow:var(--shadow);position:relative;overflow:hidden;transition:transform .2s}
+.svc .card:hover{transform:rotate(-1.2deg) translateY(-6px)}
+.svc .card:nth-child(1){background:var(--c2)}
+.svc .card:nth-child(2){background:#ffd1e5}
+.svc .card:nth-child(3){background:#fff59e}
+.svc .ico{font-size:46px}
+.svc h3{font-size:22px;margin:12px 0 8px}
+.svc p{font-weight:600;line-height:1.5}
+.svc ul{margin-top:12px;list-style:none;font-weight:800;font-size:14px}
+.svc li{padding:3px 0}
+.svc li::before{content:"✦ ";color:var(--m)}
+
+/* shop */
+#shop{background:#fff;border-top:4px solid var(--k);border-bottom:4px solid var(--k)}
+.filters{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+.filters button{border:3px solid var(--k);background:#fff;border-radius:999px;padding:10px 18px;font-weight:900;transition:.15s}
+.filters button.on,.filters button:hover{background:var(--k);color:var(--y)}
+.search{display:flex;justify-content:center;margin-bottom:30px}
+.search input{width:min(420px,100%);border:3px solid var(--k);border-radius:14px;padding:12px 16px;font-size:16px;font-family:inherit;font-weight:700}
+.note{text-align:center;font-size:13px;font-weight:700;color:#777;margin:-18px 0 26px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:24px}
+.prod{border:3px solid var(--k);border-radius:22px;background:var(--paper);overflow:hidden;display:flex;flex-direction:column;transition:transform .2s, box-shadow .2s;box-shadow:4px 4px 0 var(--k)}
+.prod:hover{transform:translateY(-6px);box-shadow:8px 10px 0 var(--k)}
+.prod .art{height:190px;display:grid;place-items:center;border-bottom:3px solid var(--k);position:relative}
+.prod .art svg{width:140px;height:140px;transition:transform .35s}
+.prod:hover .art svg{transform:scale(1.08) rotate(-4deg)}
+.prod .tag{position:absolute;top:12px;left:12px;background:var(--k);color:#fff;font-size:11px;font-weight:900;padding:4px 10px;border-radius:999px;letter-spacing:1px}
+.prod .hot{position:absolute;top:12px;right:12px;background:var(--m);color:#fff;font-size:11px;font-weight:900;padding:4px 10px;border-radius:999px;border:2px solid var(--k);transform:rotate(6deg)}
+.prod .body{padding:16px;display:flex;flex-direction:column;gap:8px;flex:1}
+.prod h4{font-size:17px;font-weight:900}
+.prod .desc{font-size:13.5px;color:#555;font-weight:600;line-height:1.4;flex:1}
+.prod select{border:2px solid var(--k);border-radius:10px;padding:7px;font-family:inherit;font-weight:700;width:100%}
+.prod .row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.price{font-family:'Bungee';font-size:20px}
+.price small{font-family:'Nunito';font-size:11px;font-weight:800;color:#888;display:block}
+.add{background:var(--y);border:3px solid var(--k);border-radius:12px;padding:9px 14px;font-weight:900;transition:.15s}
+.add:hover{background:var(--m);color:#fff;transform:rotate(-3deg)}
+
+/* custom */
+.custom{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}
+.custom .panel{background:var(--k);color:#fff;border-radius:28px;padding:34px;border:4px solid var(--k);box-shadow:8px 8px 0 var(--c)}
+.custom .panel h2{color:var(--y);font-size:34px}
+.custom .panel p{margin:12px 0 20px;font-weight:600;line-height:1.6;color:#ddd}
+form.cf{display:grid;gap:12px}
+.cf label{font-weight:800;font-size:13px}
+.cf input,.cf select,.cf textarea{width:100%;border:3px solid var(--k);border-radius:12px;padding:11px;font-family:inherit;font-size:15px;font-weight:600;background:#fff}
+.drop{border:3px dashed var(--k);border-radius:16px;padding:22px;text-align:center;background:#fff59e;font-weight:800;cursor:pointer}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;counter-reset:s}
+.step{background:#fff;border:3px solid var(--k);border-radius:20px;padding:22px;position:relative;box-shadow:4px 4px 0 var(--k)}
+.step::before{counter-increment:s;content:counter(s);position:absolute;top:-18px;left:18px;width:40px;height:40px;border-radius:50%;background:var(--m);color:#fff;font-family:'Bungee';display:grid;place-items:center;border:3px solid var(--k)}
+.step:nth-child(2)::before{background:var(--c)}
+.step:nth-child(3)::before{background:var(--y);color:var(--k)}
+.step:nth-child(4)::before{background:var(--k)}
+.step h4{margin-top:14px;font-weight:900;font-size:17px}
+.step p{font-size:14px;font-weight:600;color:#555;margin-top:6px}
+.paylogos{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:34px}
+.pl{border:3px solid var(--k);border-radius:12px;padding:8px 14px;font-weight:900;background:#fff}
+
+/* about */
+#about{background:var(--c);color:var(--k);border-top:4px solid var(--k);border-bottom:4px solid var(--k);position:relative;overflow:hidden}
+.about{display:grid;grid-template-columns:.8fr 1.2fr;gap:40px;align-items:center;position:relative}
+.about .story{background:#fff;border:4px solid var(--k);border-radius:26px;padding:32px;box-shadow:var(--shadow)}
+.about .story h2{font-size:34px}
+.about .story p{margin-top:14px;font-weight:600;line-height:1.7;font-size:16.5px}
+.about .quote{font-family:'Bungee Shade';font-size:clamp(34px,4.5vw,56px);color:var(--y);-webkit-text-stroke:1px var(--k);line-height:1.05;text-shadow:5px 5px 0 var(--k)}
+
+/* contact */
+.contact{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.contact .box{border:3px solid var(--k);border-radius:20px;padding:22px;background:#fff;box-shadow:4px 4px 0 var(--k)}
+.contact .box b{display:block;font-family:'Bungee';font-size:15px;margin-bottom:6px}
+footer{background:var(--k);color:#bbb;padding:30px 0;text-align:center;font-weight:700;font-size:14px}
+footer .cmyk{display:flex;justify-content:center;gap:6px;margin-bottom:12px}
+footer .cmyk i{width:16px;height:16px;border-radius:50%;display:block}
+
+/* drawer */
+.overlay{position:fixed;inset:0;background:rgba(20,20,20,.55);z-index:80;opacity:0;pointer-events:none;transition:.25s}
+.overlay.show{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(420px,100%);background:var(--paper);z-index:90;border-left:4px solid var(--k);transform:translateX(105%);transition:transform .35s cubic-bezier(.2,.9,.3,1.2);display:flex;flex-direction:column}
+.drawer.show{transform:none}
+.dhead{padding:20px;border-bottom:4px solid var(--k);display:flex;justify-content:space-between;align-items:center;background:var(--y)}
+.dhead h3{font-size:22px}
+.x{background:#fff;border:3px solid var(--k);border-radius:10px;width:38px;height:38px;font-weight:900;font-size:18px}
+.items{flex:1;overflow:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
+.ci{display:grid;grid-template-columns:56px 1fr auto;gap:10px;align-items:center;background:#fff;border:3px solid var(--k);border-radius:14px;padding:10px}
+.ci .mini{width:56px;height:56px;border-radius:10px;display:grid;place-items:center;border:2px solid var(--k)}
+.ci .mini svg{width:44px;height:44px}
+.ci h5{font-size:14px;font-weight:900}
+.ci .opt{font-size:12px;color:#666;font-weight:700}
+.qty{display:flex;align-items:center;gap:6px;margin-top:4px}
+.qty button{width:26px;height:26px;border:2px solid var(--k);border-radius:8px;background:#fff;font-weight:900}
+.rm{background:none;border:none;font-size:12px;font-weight:800;color:var(--m);text-decoration:underline}
+.dfoot{padding:18px;border-top:4px solid var(--k);background:#fff}
+.tot{display:flex;justify-content:space-between;font-weight:800;margin-bottom:6px}
+.tot.big{font-family:'Bungee';font-size:22px;margin:10px 0 14px}
+.empty{text-align:center;padding:50px 10px;font-weight:800;color:#777}
+.empty .e{font-size:60px}
+
+/* modal */
+.modal{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:16px;pointer-events:none;opacity:0;transition:.25s}
+.modal.show{pointer-events:auto;opacity:1}
+.mbox{background:var(--paper);border:4px solid var(--k);border-radius:26px;box-shadow:10px 10px 0 var(--k);width:min(640px,100%);max-height:92vh;overflow:auto;transform:scale(.9);transition:transform .3s cubic-bezier(.2,.9,.3,1.3)}
+.modal.show .mbox{transform:scale(1)}
+.mhead{padding:18px 22px;border-bottom:4px solid var(--k);display:flex;justify-content:space-between;align-items:center;background:var(--c);color:#fff;position:sticky;top:0;z-index:2}
+.mhead h3{font-size:20px;-webkit-text-stroke:.5px var(--k)}
+.mbody{padding:22px}
+.prog{display:flex;gap:6px;margin-bottom:18px}
+.prog i{flex:1;height:8px;border-radius:9px;background:#ddd;border:2px solid var(--k)}
+.prog i.on{background:var(--m)}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fg .full{grid-column:1/-1}
+.fg label{font-weight:800;font-size:13px;display:block;margin-bottom:4px}
+.fg input,.fg select,.fg textarea{width:100%;border:3px solid var(--k);border-radius:12px;padding:10px;font-family:inherit;font-size:15px;font-weight:600}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.opt{border:3px solid var(--k);border-radius:14px;padding:12px;background:#fff;font-weight:900;text-align:left;transition:.15s;font-size:14px}
+.opt small{display:block;font-weight:700;color:#777;font-size:12px;margin-top:2px}
+.opt.on{background:var(--y);box-shadow:4px 4px 0 var(--k);transform:translate(-2px,-2px)}
+.opt .lg{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:8px;color:#fff;font-size:13px;margin-bottom:6px}
+.summary{background:#fff;border:3px solid var(--k);border-radius:14px;padding:14px;margin:16px 0;font-weight:700;font-size:14px}
+.summary div{display:flex;justify-content:space-between;padding:3px 0}
+.summary .g{font-family:'Bungee';font-size:18px;border-top:2px dashed var(--k);margin-top:6px;padding-top:8px}
+.err{color:var(--m);font-weight:800;font-size:13px;margin-top:8px;min-height:18px}
+
+/* mock wallets */
+.wallet{border-radius:22px;overflow:hidden;border:4px solid var(--k);max-width:360px;margin:0 auto;background:#fff}
+.wallet .wtop{padding:18px;color:#fff;text-align:center}
+.wallet .wtop .wn{font-size:26px;font-weight:900;letter-spacing:.5px}
+.wallet .wbody{padding:18px;text-align:center}
+.wallet .amt{font-family:'Bungee';font-size:30px;margin:6px 0}
+.qr{width:170px;height:170px;margin:12px auto;border:3px solid var(--k);border-radius:12px;padding:8px;background:#fff}
+.wallet input{width:100%;border:3px solid var(--k);border-radius:12px;padding:10px;font-size:16px;text-align:center;font-weight:800;letter-spacing:3px;margin-top:8px}
+.mock{font-size:11px;font-weight:900;color:#fff;background:var(--m);display:inline-block;padding:3px 10px;border-radius:999px;margin-bottom:8px}
+.spinner{width:70px;height:70px;margin:20px auto;position:relative}
+.spinner i{position:absolute;width:22px;height:22px;border-radius:50%;border:2px solid var(--k);animation:orbit 1.2s linear infinite}
+.spinner i:nth-child(1){background:var(--c)}
+.spinner i:nth-child(2){background:var(--m);animation-delay:-.4s}
+.spinner i:nth-child(3){background:var(--y);animation-delay:-.8s}
+@keyframes orbit{0%{transform:rotate(0) translateX(24px) rotate(0)}100%{transform:rotate(360deg) translateX(24px) rotate(-360deg)}}
+.spinner i{top:24px;left:24px}
+.success{text-align:center}
+.success .big{font-size:70px;animation:pop .6s}
+@keyframes pop{0%{transform:scale(0)}70%{transform:scale(1.2)}100%{transform:scale(1)}}
+.receipt{background:#fff;border:3px dashed var(--k);border-radius:14px;padding:16px;text-align:left;margin:16px 0;font-size:14px;font-weight:700}
+.receipt div{display:flex;justify-content:space-between;padding:2px 0}
+
+/* toast & confetti */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(140%);background:var(--k);color:#fff;border-radius:16px;padding:14px 20px;font-weight:800;z-index:120;transition:.35s cubic-bezier(.2,.9,.3,1.3);border:3px solid var(--y);max-width:90vw}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.conf{position:fixed;width:12px;height:12px;border-radius:50%;z-index:130;pointer-events:none;border:2px solid var(--k)}
+
+.reveal{opacity:0;transform:translateY(30px);transition:all .7s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+@media (max-width:900px){
+  .links{display:none}
+  .cartbtn{margin-left:auto}
+  .hero-grid,.custom,.about{grid-template-columns:1fr}
+  .hero-art{height:340px}
+  .hero-art .biglogo{width:260px;height:260px}
+  .svc,.contact{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr 1fr;row-gap:34px}
+  .fg{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- reusable logo symbol -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="logo" viewBox="0 0 200 200">
+      <circle cx="100" cy="100" r="96" fill="#88d6e2"/>
+      <g class="puff">
+        <circle class="pc p1" cx="65" cy="54" r="7.5" fill="#f8f210"/>
+        <circle class="pc p2" cx="77" cy="48" r="7" fill="#e70181"/>
+        <circle class="pc p3" cx="73" cy="61" r="6.5" fill="#16b0ef"/>
+      </g>
+      <g class="house">
+        <rect x="66" y="69" width="17" height="26" fill="#000"/>
+        <path d="M108 60 L149 97 L149 133 Q149 135 147 135 L69 135 Q67 135 67 133 L67 96 Z" fill="#000" stroke="#88d6e2" stroke-width="3" stroke-linejoin="round" paint-order="stroke"/>
+        <g class="face">
+          <g class="eye el"><circle cx="102" cy="101" r="5.6" fill="#6cbccb" stroke="#88d6e2" stroke-width="2.4"/></g>
+          <g class="eye er"><circle cx="117.5" cy="108" r="5.6" fill="#6cbccb" stroke="#88d6e2" stroke-width="2.4"/></g>
+          <path class="smile" d="M88 111 Q103 125 127 120" fill="none" stroke="#88d6e2" stroke-width="4.6" stroke-linecap="round">
+            <animate attributeName="d" dur="3s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.35;0.65;1" keySplines=".4 0 .2 1;.4 0 .2 1;.4 0 .2 1"
+              values="M88 111 Q103 125 127 120;M86 109 Q102 134 129 118;M86 109 Q102 134 129 118;M88 111 Q103 125 127 120"/>
+          </path>
+        </g>
+      </g>
+      <g class="bush">
+        <circle cx="57" cy="115" r="11" fill="#16b0ef"/>
+        <circle cx="63" cy="126" r="9" fill="#ea4452"/>
+        <ellipse cx="47" cy="128" rx="13" ry="9" fill="#f8f210"/>
+        <rect x="28" y="135" width="44" height="12" fill="#88d6e2"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top">
+      <svg class="logo"><use href="#logo"/></svg>
+      <div class="name">The Happy<br>Print Haus<small>OUR MARK OF HAPPINESS</small></div>
+    </a>
+    <nav class="links">
+      <a href="#services">Services</a><a href="#shop">Shop</a><a href="#custom">Custom Order</a><a href="#about">Our Story</a><a href="#contact">Contact</a>
+    </nav>
+    <button class="cartbtn" id="cartBtn">🛒 Cart <span class="count" id="cartCount">0</span></button>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero" id="top">
+  <div class="bgdots halftone"></div>
+  <div class="wrap hero-grid">
+    <div class="reveal">
+      <span class="sticker">★ Print on Demand · Sta. Rosa, Laguna</span>
+      <h1>May idea ka?<br><span class="pop">Ipi-print</span> namin<br>'yan nang <span class="blue">happy!</span></h1>
+      <p class="lead">One printer. <b>Endless possibilities.</b> From custom sublimation shirts and mugs to 3D-printed figurines, business logos and that one missing part you can't find anywhere — we turn your idea into something you can <b>hold, wear and show off.</b></p>
+      <div class="ctas">
+        <a class="btn k" href="#shop">🛍️ Shop Now</a>
+        <a class="btn" href="#custom">✏️ Start a Custom Order</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <svg class="biglogo logo"><use href="#logo"/></svg>
+      <div class="float f1">👕 Sublimation</div>
+      <div class="float f2">🧊 3D Printing</div>
+      <div class="float f3">🖨️ Quick & Easy Prints</div>
+      <div class="float f4">⚡ Print on Demand</div>
+    </div>
+  </div>
+</div>
+
+<div class="marquee"><div class="track" id="marq"></div></div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">WHAT WE MAKE</div>
+      <h2>Quick & Easy Printing Solution</h2>
+      <p>Hobbyist ka man, student, designer, o entrepreneur — may paraan kami para mabuhay ang design mo.</p>
+    </div>
+    <div class="svc">
+      <div class="card reveal"><div class="ico">👕</div><h3>Sublimation & Heat Press</h3><p>Full-color prints that stay vivid, wash after wash — sa light at dark na tela.</p><ul><li>Custom & family shirts</li><li>Mugs & tumblers</li><li>Light & dark heat transfers</li></ul></div>
+      <div class="card reveal"><div class="ico">🧊</div><h3>3D Printing</h3><p>Powered by our Bambu Lab P2S. From cute desk buddies to functional parts.</p><ul><li>Figurines & cake toppers</li><li>Replacement parts & prototypes</li><li>Architectural models</li></ul></div>
+      <div class="card reveal"><div class="ico">🏢</div><h3>Business & Brand Prints</h3><p>Every business has a story — present your brand in a way customers remember.</p><ul><li>3D business logos & office signs</li><li>QR counter displays & stands</li><li>Business cards, flyers, stickers</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- SHOP -->
+<section id="shop">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">THE HAPPY SHOP</div>
+      <h2>Pick it. Print it. Love it.</h2>
+    </div>
+    <div class="filters" id="filters"></div>
+    <div class="search"><input id="q" placeholder="🔎  Search: shirt, mug, figurine, logo…"></div>
+    <p class="note">Prices shown are starting prices. Final price may change based on design complexity, size and quantity — we'll confirm before printing.</p>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<!-- CUSTOM -->
+<section id="custom">
+  <div class="wrap custom">
+    <div class="panel reveal">
+      <h2>Got a design? Let's build yours.</h2>
+      <p>Upload your artwork, sketch, photo or 3D file (STL/OBJ). Tell us what you need — we'll send a quote and a digital proof before anything gets printed. Walang hula-hula.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <span class="pl" style="background:var(--c);color:#fff">Free layout check</span>
+        <span class="pl" style="background:var(--m);color:#fff">Digital proof first</span>
+        <span class="pl" style="background:var(--y);color:#000000">Bulk discounts</span>
+      </div>
+    </div>
+    <form class="cf reveal" id="customForm">
+      <div><label>Your name</label><input required id="cfName" placeholder="Juan Dela Cruz"></div>
+      <div><label>Mobile number</label><input required id="cfPhone" placeholder="09XX XXX XXXX"></div>
+      <div><label>What do you need?</label>
+        <select id="cfType"><option>Custom sublimation shirt</option><option>Mug / tumbler</option><option>3D printed figurine / topper</option><option>3D replacement part / prototype</option><option>3D business logo / signage</option><option>Paper prints (flyers, cards, stickers)</option><option>Something else!</option></select></div>
+      <label class="drop" id="drop">📎 Click or drop your design file here<input type="file" id="file" hidden></label>
+      <div><label>Details (size, colors, quantity, deadline)</label><textarea id="cfNote" rows="3" placeholder="Hal. 12 shirts, size M–XL, for family reunion on Dec 20"></textarea></div>
+      <button class="btn m" type="submit">🚀 Send Request for Quote</button>
+    </form>
+  </div>
+</section>
+
+<!-- HOW -->
+<section style="padding-top:20px">
+  <div class="wrap">
+    <div class="sec-head reveal"><div class="kicker">EASY LANG</div><h2>How to Order</h2></div>
+    <div class="steps">
+      <div class="step reveal"><h4>Choose</h4><p>Browse the shop or send your own design for a custom job.</p></div>
+      <div class="step reveal"><h4>Pay</h4><p>Checkout via GCash, Maya, card, bank transfer or cash on pickup.</p></div>
+      <div class="step reveal"><h4>We Print</h4><p>We send a digital proof, then print, press or 3D-print your order with care.</p></div>
+      <div class="step reveal"><h4>Smile!</h4><p>Pick up in Sta. Rosa or get it delivered. Happiness, printed.</p></div>
+    </div>
+    <div class="paylogos">
+      <span class="pl" style="background:#0a6cff;color:#fff">GCash</span>
+      <span class="pl" style="background:#00c26b;color:#fff">Maya</span>
+      <span class="pl">💳 Visa / Mastercard</span>
+      <span class="pl">🏦 Bank Transfer</span>
+      <span class="pl">💵 Cash on Pickup</span>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="bgdots halftone" style="position:absolute;inset:0;opacity:.4"></div>
+  <div class="wrap about">
+    <div class="quote reveal">Born from a hobby.<br>Printed with passion.</div>
+    <div class="story reveal">
+      <h2>Our Story 🏠</h2>
+      <p>The Happy Print Haus started in Sta. Rosa, Laguna — not as a big business plan, but as a hobby our owner simply couldn't put down. One design led to another, one print turned into an order, and before long friends, neighbors and businesses were knocking on our door.</p>
+      <p>Today we're a small, BIR-registered print studio that still treats every order like a personal project. Every shirt, mug and 3D piece that leaves our haus carries <b>our mark of happiness</b> — and we hope it makes you smile, too.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-head reveal"><div class="kicker">COME SAY HI</div><h2>Visit the Haus</h2></div>
+    <div class="contact">
+      <div class="box reveal"><b>📍 Address</b>94 San Leonardo Street, Laguna Bel-Air 2, Santa Rosa, Laguna 4024</div>
+      <div class="box reveal"><b>📞 Call / Text</b>0961 853 9589<br><span style="font-size:13px;color:#666">Message us on Facebook: The Happy Print Haus</span></div>
+      <div class="box reveal"><b>✉️ Email</b>thehappyprinthaus@gmail.com<br><span style="font-size:13px;color:#666">BIR-registered business</span></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="cmyk"><i style="background:var(--c)"></i><i style="background:var(--m)"></i><i style="background:var(--y)"></i><i style="background:#fff"></i></div>
+  © 2026 The Happy Print Haus · Our Mark of Happiness<br><span style="font-size:12px;color:#888">Demo website prepared by Ghe (GDOThinkHub) — © 2026, all rights reserved · Payments are simulated</span>
+</footer>
+
+<!-- CART DRAWER -->
+<div class="overlay" id="ov"></div>
+<aside class="drawer" id="drawer">
+  <div class="dhead"><h3>Your Cart</h3><button class="x" id="closeCart">✕</button></div>
+  <div class="items" id="items"></div>
+  <div class="dfoot" id="dfoot"></div>
+</aside>
+
+<!-- CHECKOUT MODAL -->
+<div class="modal" id="modal"><div class="mbox"><div class="mhead"><h3 id="mtitle">Checkout</h3><button class="x" id="closeModal">✕</button></div><div class="mbody" id="mbody"></div></div></div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const PESO = n => '₱' + n.toLocaleString('en-PH',{minimumFractionDigits:0});
+const CATS = ['All','Apparel & Sublimation','Paper Prints','3D Printing','Business & Signage'];
+
+/* --- simple SVG product art --- */
+const ART = {
+  shirt:(c,a)=>`<svg viewBox="0 0 120 120"><path d="M38 18 L22 26 L8 44 L22 54 L30 46 L30 104 L90 104 L90 46 L98 54 L112 44 L98 26 L82 18 Q60 34 38 18Z" fill="${c}" stroke="#000000" stroke-width="4" stroke-linejoin="round"/><circle cx="60" cy="66" r="14" fill="${a}" stroke="#000000" stroke-width="3"/><circle cx="55" cy="63" r="2" fill="#000000"/><circle cx="65" cy="63" r="2" fill="#000000"/><path d="M54 70 Q60 76 66 70" stroke="#000000" stroke-width="3" fill="none"/></svg>`,
+  family:()=>`<svg viewBox="0 0 120 120"><g transform="translate(-4,10) scale(.6)"><path d="M38 18 L22 26 L8 44 L22 54 L30 46 L30 104 L90 104 L90 46 L98 54 L112 44 L98 26 L82 18 Q60 34 38 18Z" fill="#fff" stroke="#000000" stroke-width="5"/><circle cx="60" cy="62" r="10" fill="#fff" stroke="#000000" stroke-width="4"/><path d="M60 64 l10 3 l-10 3z" fill="#ff8a00"/></g><g transform="translate(44,4) scale(.62)"><path d="M38 18 L22 26 L8 44 L22 54 L30 46 L30 104 L90 104 L90 46 L98 54 L112 44 L98 26 L82 18 Q60 34 38 18Z" fill="#fff" stroke="#000000" stroke-width="5"/><path d="M60 44 L72 78 L48 78Z" fill="#16b0ef" stroke="#000000" stroke-width="3"/></g><g transform="translate(30,54) scale(.42)"><path d="M38 18 L22 26 L8 44 L22 54 L30 46 L30 104 L90 104 L90 46 L98 54 L112 44 L98 26 L82 18 Q60 34 38 18Z" fill="#fff" stroke="#000000" stroke-width="6"/><circle cx="60" cy="62" r="12" fill="#c98a4b" stroke="#000000" stroke-width="4"/></g><text x="96" y="22" font-size="18">🎄</text></svg>`,
+  mug:(c)=>`<svg viewBox="0 0 120 120"><path d="M86 46 Q108 46 106 66 Q104 84 84 82" fill="none" stroke="#000000" stroke-width="8"/><rect x="22" y="30" width="66" height="70" rx="10" fill="#fff" stroke="#000000" stroke-width="4"/><rect x="30" y="44" width="50" height="38" rx="6" fill="${c}"/><text x="55" y="70" text-anchor="middle" font-family="Bungee" font-size="14" fill="#fff">YOU</text><path d="M40 22 q4 -8 0 -14 M56 22 q4 -8 0 -14 M72 22 q4 -8 0 -14" stroke="#e70181" stroke-width="3" fill="none"/></svg>`,
+  tumbler:()=>`<svg viewBox="0 0 120 120"><path d="M34 22 H86 L80 106 H40Z" fill="#16b0ef" stroke="#000000" stroke-width="4" stroke-linejoin="round"/><rect x="30" y="14" width="60" height="12" rx="4" fill="#000000"/><rect x="66" y="2" width="6" height="16" fill="#e70181"/><circle cx="60" cy="62" r="14" fill="#f8f210" stroke="#000000" stroke-width="3"/></svg>`,
+  transfer:()=>`<svg viewBox="0 0 120 120"><rect x="16" y="20" width="60" height="78" rx="6" fill="#fff" stroke="#000000" stroke-width="4" transform="rotate(-8 46 59)"/><rect x="44" y="24" width="60" height="78" rx="6" fill="#000000" stroke="#000000" stroke-width="4" transform="rotate(8 74 63)"/><path d="M58 50 l10 18 l-6 0 l6 18" stroke="#f8f210" stroke-width="5" fill="none" transform="rotate(8 74 63)"/><circle cx="40" cy="56" r="12" fill="#e70181" transform="rotate(-8 46 59)"/></svg>`,
+  cap:()=>`<svg viewBox="0 0 120 120"><path d="M20 76 Q20 30 60 30 Q100 30 100 76Z" fill="#e70181" stroke="#000000" stroke-width="4"/><path d="M14 76 H112 Q112 88 92 88 H14Z" fill="#000000"/><circle cx="60" cy="54" r="10" fill="#f8f210" stroke="#000000" stroke-width="3"/></svg>`,
+  flyer:()=>`<svg viewBox="0 0 120 120"><rect x="24" y="12" width="72" height="96" rx="4" fill="#f8f210" stroke="#000000" stroke-width="4" transform="rotate(-6 60 60)"/><rect x="34" y="26" width="52" height="22" rx="4" fill="#16b0ef" stroke="#000000" stroke-width="3" transform="rotate(-6 60 60)"/><text x="58" y="42" text-anchor="middle" font-family="Bungee" font-size="11" fill="#fff" transform="rotate(-6 60 60)">PRINT!</text><circle cx="60" cy="76" r="14" fill="#e70181" stroke="#000000" stroke-width="3" transform="rotate(-6 60 60)"/></svg>`,
+  card:()=>`<svg viewBox="0 0 120 120"><rect x="14" y="40" width="80" height="50" rx="6" fill="#000000" transform="rotate(-10 54 65)"/><rect x="26" y="32" width="80" height="50" rx="6" fill="#fff" stroke="#000000" stroke-width="4"/><circle cx="44" cy="52" r="9" fill="#16b0ef"/><rect x="58" y="46" width="38" height="5" rx="2" fill="#000000"/><rect x="58" y="56" width="26" height="4" rx="2" fill="#e70181"/><rect x="36" y="68" width="60" height="4" rx="2" fill="#ccc"/></svg>`,
+  sticker:()=>`<svg viewBox="0 0 120 120"><circle cx="44" cy="46" r="26" fill="#e70181" stroke="#000000" stroke-width="4"/><path d="M50 82 l12 -30 l12 30 z" fill="#f8f210" stroke="#000000" stroke-width="4" stroke-linejoin="round"/><rect x="68" y="20" width="36" height="36" rx="10" fill="#16b0ef" stroke="#000000" stroke-width="4" transform="rotate(12 86 38)"/><path d="M80 70 h30 v30 h-18 l-12 -12z" fill="#fff" stroke="#000000" stroke-width="4"/><path d="M92 100 v-12 h18" fill="#ddd" stroke="#000000" stroke-width="3"/></svg>`,
+  tarp:()=>`<svg viewBox="0 0 120 120"><rect x="8" y="30" width="104" height="58" rx="4" fill="#16b0ef" stroke="#000000" stroke-width="4"/><circle cx="14" cy="36" r="3" fill="#fff"/><circle cx="106" cy="36" r="3" fill="#fff"/><text x="60" y="58" text-anchor="middle" font-family="Bungee" font-size="13" fill="#f8f210" stroke="#000000" stroke-width=".8">HAPPY</text><text x="60" y="76" text-anchor="middle" font-family="Bungee" font-size="11" fill="#fff">BIRTHDAY!</text></svg>`,
+  figure:()=>`<svg viewBox="0 0 120 120"><ellipse cx="60" cy="104" rx="34" ry="8" fill="#000000"/><rect x="40" y="62" width="40" height="40" rx="14" fill="#f8f210" stroke="#000000" stroke-width="4"/><circle cx="60" cy="44" r="26" fill="#e70181" stroke="#000000" stroke-width="4"/><circle cx="51" cy="42" r="4" fill="#000000"/><circle cx="69" cy="42" r="4" fill="#000000"/><path d="M52 52 Q60 60 68 52" stroke="#000000" stroke-width="3" fill="none"/><path d="M38 26 l-6 -12 l14 6 M82 26 l6 -12 l-14 6" fill="#e70181" stroke="#000000" stroke-width="4" stroke-linejoin="round"/></svg>`,
+  topper:()=>`<svg viewBox="0 0 120 120"><rect x="22" y="78" width="76" height="30" rx="6" fill="#ffd1e5" stroke="#000000" stroke-width="4"/><path d="M22 86 q10 8 19 0 q10 8 19 0 q10 8 19 0 q10 8 19 0" fill="none" stroke="#fff" stroke-width="4"/><line x1="44" y1="78" x2="44" y2="56" stroke="#000000" stroke-width="3"/><line x1="76" y1="78" x2="76" y2="56" stroke="#000000" stroke-width="3"/><text x="60" y="56" text-anchor="middle" font-family="Bungee" font-size="20" fill="#16b0ef" stroke="#000000" stroke-width="1.2">HAPPY</text><text x="60" y="30" text-anchor="middle" font-size="20">★</text></svg>`,
+  keychain:()=>`<svg viewBox="0 0 120 120"><circle cx="40" cy="26" r="14" fill="none" stroke="#000000" stroke-width="5"/><path d="M48 38 l12 14" stroke="#000000" stroke-width="5"/><path d="M60 50 l34 0 l0 34 a14 14 0 0 1 -14 14 l-20 0 l0 -48z" fill="#16b0ef" stroke="#000000" stroke-width="4"/><text x="77" y="82" text-anchor="middle" font-family="Bungee" font-size="20" fill="#fff">G</text></svg>`,
+  gear:()=>`<svg viewBox="0 0 120 120"><g transform="translate(46 54)"><circle r="28" fill="#000000"/><g fill="#000000">${[0,45,90,135,180,225,270,315].map(a=>`<rect x="-6" y="-38" width="12" height="14" rx="2" transform="rotate(${a})"/>`).join('')}</g><circle r="10" fill="#fffdf5"/></g><g transform="translate(88 86)"><circle r="16" fill="#ff8a00" stroke="#000000" stroke-width="3"/><g fill="#ff8a00" stroke="#000000" stroke-width="2">${[0,60,120,180,240,300].map(a=>`<rect x="-4" y="-24" width="8" height="9" transform="rotate(${a})"/>`).join('')}</g><circle r="5" fill="#fffdf5" stroke="#000000" stroke-width="2"/></g></svg>`,
+  organizer:()=>`<svg viewBox="0 0 120 120"><path d="M18 50 h84 v50 a6 6 0 0 1 -6 6 h-72 a6 6 0 0 1 -6 -6z" fill="#88d6e2" stroke="#000000" stroke-width="4"/><line x1="46" y1="50" x2="46" y2="106" stroke="#000000" stroke-width="4"/><line x1="74" y1="50" x2="74" y2="106" stroke="#000000" stroke-width="4"/><rect x="26" y="16" width="6" height="40" fill="#e70181" stroke="#000000" stroke-width="2" transform="rotate(-8 29 36)"/><rect x="34" y="22" width="6" height="34" fill="#f8f210" stroke="#000000" stroke-width="2"/><rect x="54" y="30" width="14" height="22" fill="#fff" stroke="#000000" stroke-width="2"/></svg>`,
+  arch:()=>`<svg viewBox="0 0 120 120"><path d="M10 100 h100" stroke="#000000" stroke-width="5"/><rect x="18" y="50" width="34" height="50" fill="#fff" stroke="#000000" stroke-width="4"/><path d="M14 52 L35 30 L56 52Z" fill="#e70181" stroke="#000000" stroke-width="4" stroke-linejoin="round"/><rect x="58" y="30" width="46" height="70" fill="#e8e8e8" stroke="#000000" stroke-width="4"/>${[40,56,72].map(y=>`<rect x="66" y="${y}" width="10" height="9" fill="#16b0ef"/><rect x="86" y="${y}" width="10" height="9" fill="#16b0ef"/>`).join('')}<rect x="28" y="70" width="14" height="30" fill="#f8f210" stroke="#000000" stroke-width="3"/></svg>`,
+  logo3d:()=>`<svg viewBox="0 0 120 120"><rect x="10" y="22" width="100" height="76" rx="10" fill="#000000"/><rect x="16" y="16" width="100" height="76" rx="10" fill="#fff" stroke="#000000" stroke-width="4"/><circle cx="50" cy="48" r="14" fill="#16b0ef" stroke="#000000" stroke-width="3"/><circle cx="72" cy="48" r="14" fill="#e70181" stroke="#000000" stroke-width="3" opacity=".9"/><rect x="34" y="70" width="64" height="8" rx="3" fill="#000000"/></svg>`,
+  qr:()=>`<svg viewBox="0 0 120 120"><path d="M30 100 L40 74 H80 L90 100Z" fill="#16b0ef" stroke="#000000" stroke-width="4" stroke-linejoin="round"/><rect x="32" y="14" width="56" height="64" rx="8" fill="#fff" stroke="#000000" stroke-width="4"/>${[[40,22],[62,22],[40,44]].map(([x,y])=>`<rect x="${x}" y="${y}" width="16" height="16" fill="none" stroke="#000000" stroke-width="4"/><rect x="${x+5}" y="${y+5}" width="6" height="6" fill="#000000"/>`).join('')}<rect x="64" y="46" width="6" height="6" fill="#000000"/><rect x="74" y="54" width="6" height="6" fill="#e70181"/><rect x="64" y="58" width="6" height="6" fill="#000000"/><text x="60" y="94" text-anchor="middle" font-family="Bungee" font-size="9" fill="#fff">SCAN TO PAY</text></svg>`,
+  nameplate:()=>`<svg viewBox="0 0 120 120"><path d="M10 84 L24 50 H96 L110 84Z" fill="#000000"/><rect x="18" y="40" width="84" height="34" rx="6" fill="#f8f210" stroke="#000000" stroke-width="4"/><text x="60" y="63" text-anchor="middle" font-family="Bungee" font-size="13" fill="#000000">MARIA A.</text></svg>`,
+};
+
+const P = [
+  {id:'tee',n:'Custom Sublimation T-Shirt',c:'Apparel & Sublimation',p:350,art:ART.shirt('#fff','#f8f210'),bg:'#88d6e2',d:'Your design, full-color and vibrant. Wash-proof print on dri-fit or cotton-feel fabric.',o:['Size XS–XL','Size 2XL (+₱50)','Kids size (-₱50)'],adj:[0,50,-50],hot:'BEST SELLER'},
+  {id:'xmas',n:'Christmas Mix & Match Family Shirts',c:'Apparel & Sublimation',p:1050,art:ART.family(),bg:'#ffd1e5',d:"'Tis the season! Snowman, tree & gingerbread designs for the whole family. Set of 3.",o:['Set of 3','Set of 4 (+₱330)','Set of 5 (+₱650)'],adj:[0,330,650],hot:'SEASONAL'},
+  {id:'mug',n:'Personalized Sublimation Mug',c:'Apparel & Sublimation',p:220,art:ART.mug('#e70181'),bg:'#fff59e',d:'11oz ceramic mug with your photo, name or logo. Perfect pang-regalo.',o:['White mug','Magic mug — reveals with heat (+₱80)','Inner-color mug (+₱40)'],adj:[0,80,40]},
+  {id:'tumbler',n:'Custom Sublimation Tumbler',c:'Apparel & Sublimation',p:380,art:ART.tumbler(),bg:'#e3f7fc',d:'20oz stainless tumbler, hot & cold. Wrap-around full-color print.',o:['20oz','30oz (+₱80)'],adj:[0,80]},
+  {id:'transfer',n:'Heat Transfer Print (Light & Dark)',c:'Apparel & Sublimation',p:150,art:ART.transfer(),bg:'#fff',d:'Ready-to-press transfers for light and dark fabrics. Great for small sellers & DIY.',o:['A4 sheet – light fabric','A4 sheet – dark fabric (+₱40)'],adj:[0,40]},
+  {id:'cap',n:'Custom Printed Cap',c:'Apparel & Sublimation',p:280,art:ART.cap(),bg:'#88d6e2',d:'Trucker or baseball cap with your logo or text — team, event or barkada.',o:['Trucker cap','Baseball cap (+₱40)'],adj:[0,40]},
+  {id:'flyer',n:'Flyers & Posters',c:'Paper Prints',p:450,art:ART.flyer(),bg:'#e3f7fc',d:'Eye-popping full-color flyers that get noticed. Glossy or matte.',o:['A5 × 50 pcs','A4 × 50 pcs (+₱250)','A3 poster × 10 pcs (+₱150)'],adj:[0,250,150]},
+  {id:'bcard',n:'Business Cards',c:'Paper Prints',p:350,art:ART.card(),bg:'#fff59e',d:'Premium cardstock, sharp print. First impressions that last.',o:['100 pcs – matte','100 pcs – glossy','200 pcs – matte (+₱250)'],adj:[0,0,250]},
+  {id:'stick',n:'Custom Stickers & Labels',c:'Paper Prints',p:80,art:ART.sticker(),bg:'#ffd1e5',d:'Die-cut or kiss-cut. Product labels, planner stickers, packaging seals.',o:['A4 sheet – glossy','A4 sheet – waterproof vinyl (+₱40)'],adj:[0,40]},
+  {id:'tarp',n:'Tarpaulin Banner',c:'Paper Prints',p:300,art:ART.tarp(),bg:'#fff',d:'Birthdays, store openings, events. Vivid print with eyelets.',o:['2×3 ft','3×4 ft (+₱300)','3×6 ft (+₱600)'],adj:[0,300,600]},
+  {id:'fig',n:'3D Printed Character Figurine',c:'3D Printing',p:450,art:ART.figure(),bg:'#fff59e',d:'Adorable desk buddies or detailed display pieces of your favorite character or original design.',o:['Small (~6cm)','Medium (~10cm) (+₱300)','Large (~15cm) (+₱750)'],adj:[0,300,750],hot:'NEW'},
+  {id:'topper',n:'3D Printed Cake Topper',c:'3D Printing',p:350,art:ART.topper(),bg:'#ffd1e5',d:'Custom name, number or character topper — sturdy, food-safe placement.',o:['Name / text','Name + character (+₱250)'],adj:[0,250]},
+  {id:'key',n:'3D Personalized Keychain',c:'3D Printing',p:120,art:ART.keychain(),bg:'#88d6e2',d:'Initials, logos or mini figures. Perfect giveaways and souvenirs.',o:['1 pc','10 pcs (+₱830)','50 pcs (+₱4,380)'],adj:[0,830,4380]},
+  {id:'org',n:'3D Desk Organizer',c:'3D Printing',p:380,art:ART.organizer(),bg:'#e3f7fc',d:'Modular pen holder & tray, in your choice of color. Make your desk happy.',o:['Standard','With custom name (+₱80)'],adj:[0,80]},
+  {id:'part',n:'Replacement Part / Prototype',c:'3D Printing',p:250,art:ART.gear(),bg:'#fff',d:'Need a missing part? Functional components, custom tools and product prototypes. Starting price — final quote after file/sample review.',o:['Small part','Medium part (+₱250)','Prototype (+₱750)'],adj:[0,250,750]},
+  {id:'arch',n:'Architectural Scale Model',c:'3D Printing',p:2500,art:ART.arch(),bg:'#fff59e',d:'For students, architects & developers. Detailed building models from your 3D files.',o:['Basic (single structure)','Detailed (+₱1,500)','With landscape base (+₱3,000)'],adj:[0,1500,3000]},
+  {id:'logo',n:'3D Business Logo Sign',c:'Business & Signage',p:1500,art:ART.logo3d(),bg:'#88d6e2',d:'Raised 3D logo for your office wall or reception. Your brand, standing out — literally.',o:['30cm wide','45cm wide (+₱900)','60cm wide (+₱1,800)'],adj:[0,900,1800],hot:'FOR BUSINESS'},
+  {id:'qr',n:'QR Code Counter Display',c:'Business & Signage',p:450,art:ART.qr(),bg:'#ffd1e5',d:'Scan-to-pay or scan-to-follow stand for GCash/Maya QR at your counter.',o:['Single QR','Dual QR (+₱150)'],adj:[0,150]},
+  {id:'name',n:'3D Desk Nameplate',c:'Business & Signage',p:380,art:ART.nameplate(),bg:'#fff59e',d:'Name & position nameplate for your office desk or reception.',o:['Standard','With company logo (+₱120)'],adj:[0,120]},
+  {id:'stand',n:'Product / Menu Stand',c:'Business & Signage',p:350,art:ART.organizer(),bg:'#e3f7fc',d:'Counter and trade-show displays for menus, price lists and products.',o:['Small','Large (+₱200)'],adj:[0,200]},
+];
+
+/* --- state --- */
+let cart = [];
+try{ cart = JSON.parse(localStorage.getItem('thph_cart')||'[]') }catch(e){}
+const save = ()=>{ try{localStorage.setItem('thph_cart',JSON.stringify(cart))}catch(e){} };
+let cat='All', q='';
+
+/* marquee */
+const mq = '<span>QUICK & EASY PRINTING SOLUTION</span><span class="s">★</span><span>OUR MARK OF HAPPINESS</span><span class="t">●</span><span>SUBLIMATION</span><span class="s">★</span><span>3D PRINTING</span><span class="t">●</span><span>PRINT ON DEMAND</span><span class="s">★</span><span>LET\'S BUILD YOURS</span><span class="t">●</span>';
+document.getElementById('marq').innerHTML = mq+mq;
+
+/* filters */
+const F = document.getElementById('filters');
+F.innerHTML = CATS.map(c=>`<button class="${c==='All'?'on':''}" data-c="${c}">${c}</button>`).join('');
+F.onclick = e=>{ const b=e.target.closest('button'); if(!b) return; cat=b.dataset.c; [...F.children].forEach(x=>x.classList.toggle('on',x===b)); render(); };
+document.getElementById('q').oninput = e=>{ q=e.target.value.toLowerCase(); render(); };
+
+function render(){
+  const list = P.filter(p=>(cat==='All'||p.c===cat) && (p.n+p.d+p.c).toLowerCase().includes(q));
+  document.getElementById('grid').innerHTML = list.length ? list.map(p=>`
+    <div class="prod">
+      <div class="art halftone" style="background-color:${p.bg}"><span class="tag">${p.c.toUpperCase()}</span>${p.hot?`<span class="hot">${p.hot}</span>`:''}${p.art}</div>
+      <div class="body">
+        <h4>${p.n}</h4>
+        <div class="desc">${p.d}</div>
+        <select id="o-${p.id}">${p.o.map((o,i)=>`<option value="${i}">${o}</option>`).join('')}</select>
+        <div class="row"><div class="price"><small>STARTS AT</small>${PESO(p.p)}</div><button class="add" data-id="${p.id}">+ Add</button></div>
+      </div>
+    </div>`).join('') : '<p class="empty" style="grid-column:1/-1">Walang nahanap 😅 — try a custom order below!</p>';
+}
+document.getElementById('grid').onclick = e=>{
+  const b=e.target.closest('.add'); if(!b) return;
+  const p=P.find(x=>x.id===b.dataset.id); const oi=+document.getElementById('o-'+p.id).value;
+  const key=p.id+'-'+oi; const ex=cart.find(i=>i.key===key);
+  if(ex) ex.q++; else cart.push({key,id:p.id,opt:p.o[oi],price:p.p+p.adj[oi],q:1});
+  save(); updateCart(); toast(`🎉 Added: ${p.n}`); burst(e.clientX,e.clientY,10);
+  const cb=document.getElementById('cartBtn'); cb.classList.remove('bump'); void cb.offsetWidth; cb.classList.add('bump');
+};
+
+/* cart */
+const subtotal = ()=>cart.reduce((s,i)=>s+i.price*i.q,0);
+function updateCart(){
+  document.getElementById('cartCount').textContent = cart.reduce((s,i)=>s+i.q,0);
+  const it=document.getElementById('items'), ft=document.getElementById('dfoot');
+  if(!cart.length){ it.innerHTML='<div class="empty"><div class="e">🏠</div>Your cart is empty.<br>Let\'s print something happy!</div>'; ft.innerHTML='<button class="btn k" style="width:100%;justify-content:center" onclick="closeCart();location.hash=\'shop\'">Browse the Shop</button>'; return; }
+  it.innerHTML = cart.map((i,ix)=>{const p=P.find(x=>x.id===i.id);return `
+    <div class="ci"><div class="mini" style="background:${p.bg}">${p.art}</div>
+      <div><h5>${p.n}</h5><div class="opt">${i.opt}</div>
+        <div class="qty"><button onclick="chg(${ix},-1)">−</button><b>${i.q}</b><button onclick="chg(${ix},1)">+</button> <button class="rm" onclick="chg(${ix},-999)">remove</button></div></div>
+      <b>${PESO(i.price*i.q)}</b></div>`}).join('');
+  ft.innerHTML = `<div class="tot"><span>Subtotal</span><span>${PESO(subtotal())}</span></div>
+    <div class="tot" style="font-size:13px;color:#666"><span>Delivery fee</span><span>calculated at checkout</span></div>
+    <button class="btn m" style="width:100%;justify-content:center;margin-top:12px" onclick="startCheckout()">Checkout → ${PESO(subtotal())}</button>`;
+}
+function chg(ix,d){ cart[ix].q+=d; if(cart[ix].q<=0) cart.splice(ix,1); save(); updateCart(); }
+const ov=document.getElementById('ov'), dr=document.getElementById('drawer');
+function openCart(){ ov.classList.add('show'); dr.classList.add('show'); }
+function closeCart(){ ov.classList.remove('show'); dr.classList.remove('show'); }
+document.getElementById('cartBtn').onclick=openCart;
+document.getElementById('closeCart').onclick=closeCart;
+ov.onclick=()=>{closeCart();closeModal();};
+
+/* checkout */
+const M=document.getElementById('modal'), MB=document.getElementById('mbody'), MT=document.getElementById('mtitle');
+let order={};
+function openModal(){ M.classList.add('show'); ov.classList.add('show'); }
+function closeModal(){ M.classList.remove('show'); if(!dr.classList.contains('show')) ov.classList.remove('show'); }
+document.getElementById('closeModal').onclick=closeModal;
+const DEL={pickup:{n:'Store pickup — Sta. Rosa',f:0},local:{n:'Local delivery (Sta. Rosa / Biñan / Cabuyao)',f:80},lalamove:{n:'Lalamove — Metro Manila / CALABARZON',f:180},courier:{n:'J&T / LBC nationwide',f:150}};
+const PAY={gcash:{n:'GCash',col:'#0a6cff',s:'e-wallet'},maya:{n:'Maya',col:'#00c26b',s:'e-wallet'},card:{n:'Credit / Debit Card',col:'#000000',s:'Visa · Mastercard'},bank:{n:'Bank Transfer',col:'#16b0ef',s:'BDO · BPI · UnionBank'},cash:{n:'Cash on Pickup',col:'#e70181',s:'pay at the Haus'}};
+const prog=n=>`<div class="prog">${[1,2,3].map(i=>`<i class="${i<=n?'on':''}"></i>`).join('')}</div>`;
+
+function startCheckout(){
+  closeCart(); order={del:'pickup',pay:'gcash'}; step1(); openModal();
+}
+function step1(){
+  MT.textContent='Checkout · Your Details';
+  MB.innerHTML = prog(1)+`<div class="fg">
+    <div><label>Full name</label><input id="cn" value="${order.name||''}" placeholder="Juan Dela Cruz"></div>
+    <div><label>Mobile number</label><input id="cp" value="${order.phone||''}" placeholder="09XX XXX XXXX"></div>
+    <div class="full"><label>Email (for your receipt)</label><input id="ce" value="${order.email||''}" placeholder="you@email.com"></div>
+    <div class="full"><label>How do you want to get it?</label><div class="opts" id="dopts">${Object.entries(DEL).map(([k,v])=>`<button class="opt ${order.del===k?'on':''}" data-k="${k}">${v.n}<small>${v.f?PESO(v.f):'FREE'}</small></button>`).join('')}</div></div>
+    <div class="full" id="addrWrap"><label>Delivery address</label><textarea id="ca" rows="2" placeholder="House no., street, barangay, city">${order.addr||''}</textarea></div>
+    <div class="full"><label>Design notes / needed by (optional)</label><textarea id="cnote" rows="2" placeholder="Hal. names to print, colors, deadline">${order.note||''}</textarea></div>
+  </div><div class="err" id="err"></div>
+  <button class="btn k" style="width:100%;justify-content:center;margin-top:8px" onclick="go2()">Continue to Payment →</button>`;
+  const tog=()=>document.getElementById('addrWrap').style.display=order.del==='pickup'?'none':'block'; tog();
+  document.getElementById('dopts').onclick=e=>{const b=e.target.closest('.opt'); if(!b) return; order.del=b.dataset.k; [...b.parentNode.children].forEach(x=>x.classList.toggle('on',x===b)); tog();};
+}
+function go2(){
+  order.name=cn.value.trim(); order.phone=cp.value.trim(); order.email=ce.value.trim(); order.addr=ca.value.trim(); order.note=cnote.value.trim();
+  const er=document.getElementById('err');
+  if(!order.name) return er.textContent='Please enter your name.';
+  if(!/^(09|\+639)\d{9}$/.test(order.phone.replace(/\s|-/g,''))) return er.textContent='Please enter a valid PH mobile number (09XXXXXXXXX).';
+  if(order.del!=='pickup' && order.addr.length<8) return er.textContent='Please enter your delivery address.';
+  step2();
+}
+function totals(){ const s=subtotal(), f=DEL[order.del].f; return {s,f,t:s+f}; }
+function step2(){
+  MT.textContent='Checkout · Payment';
+  const T=totals();
+  MB.innerHTML = prog(2)+`<label style="font-weight:800;font-size:13px">Choose payment method</label>
+  <div class="opts" id="popts" style="margin-top:6px">${Object.entries(PAY).map(([k,v])=>`<button class="opt ${order.pay===k?'on':''}" data-k="${k}"><span class="lg" style="background:${v.col}">${v.n[0]}</span><br>${v.n}<small>${v.s}</small></button>`).join('')}</div>
+  <div class="summary">${cart.map(i=>{const p=P.find(x=>x.id===i.id);return `<div><span>${i.q}× ${p.n}</span><span>${PESO(i.price*i.q)}</span></div>`}).join('')}
+    <div style="border-top:2px dashed #000000;margin-top:6px;padding-top:6px"><span>Subtotal</span><span>${PESO(T.s)}</span></div>
+    <div><span>${DEL[order.del].n}</span><span>${T.f?PESO(T.f):'FREE'}</span></div>
+    <div class="g"><span>TOTAL</span><span>${PESO(T.t)}</span></div></div>
+  <div style="display:flex;gap:10px"><button class="btn" onclick="step1()">← Back</button><button class="btn m" style="flex:1;justify-content:center" onclick="step3()">Pay ${PESO(T.t)}</button></div>`;
+  document.getElementById('popts').onclick=e=>{const b=e.target.closest('.opt'); if(!b) return; order.pay=b.dataset.k; [...b.parentNode.children].forEach(x=>x.classList.toggle('on',x===b));};
+}
+function fakeQR(){ let s='<svg viewBox="0 0 21 21" style="width:100%;height:100%" shape-rendering="crispEdges">'; let seed=7;
+  const r=()=>{seed=(seed*9301+49297)%233280;return seed/233280};
+  for(let y=0;y<21;y++)for(let x=0;x<21;x++){ const f=(x<7&&y<7)||(x>13&&y<7)||(x<7&&y>13);
+    if(f){ const lx=x>13?x-14:x, ly=y>13?y-14:y; if(lx===0||ly===0||lx===6||ly===6||(lx>1&&lx<5&&ly>1&&ly<5)) s+=`<rect x="${x}" y="${y}" width="1" height="1"/>`; }
+    else if(r()>.52) s+=`<rect x="${x}" y="${y}" width="1" height="1"/>`; }
+  return s+'</svg>'; }
+function step3(){
+  const T=totals(), p=PAY[order.pay];
+  MT.textContent='Checkout · '+p.n;
+  let inner='';
+  if(order.pay==='gcash'||order.pay==='maya'){
+    inner=`<div class="wallet"><div class="wtop" style="background:${p.col}"><div class="wn">${p.n}</div><div style="font-weight:700;font-size:13px">Pay to: THE HAPPY PRINT HAUS</div></div>
+      <div class="wbody"><span class="mock">MOCK PAYMENT — NO REAL MONEY</span><div style="font-weight:800;color:#666;font-size:13px">Amount due</div><div class="amt">${PESO(T.t)}</div>
+      <div class="qr">${fakeQR()}</div><div style="font-size:13px;font-weight:700;color:#555">Scan with your ${p.n} app, or enter your ${p.n}-registered number to receive an OTP</div>
+      <input id="wnum" placeholder="09XX XXX XXXX" value="${order.phone}"><div class="err" id="err"></div>
+      <button class="btn" style="width:100%;justify-content:center;margin-top:8px;background:${p.col};color:#fff" onclick="otp()">Send OTP</button></div></div>`;
+  } else if(order.pay==='card'){
+    inner=`<span class="mock">MOCK PAYMENT — NO REAL CARD IS CHARGED</span><div class="fg">
+      <div class="full"><label>Card number (use test card 4242 4242 4242 4242)</label><input id="cardn" placeholder="4242 4242 4242 4242" maxlength="19"></div>
+      <div><label>Expiry</label><input id="cardx" placeholder="MM/YY" maxlength="5"></div><div><label>CVC</label><input id="cardc" placeholder="123" maxlength="4"></div>
+      <div class="full"><label>Name on card</label><input value="${order.name}"></div></div><div class="err" id="err"></div>
+      <button class="btn k" style="width:100%;justify-content:center;margin-top:8px" onclick="payCard()">Pay ${PESO(T.t)}</button>`;
+  } else if(order.pay==='bank'){
+    inner=`<span class="mock">MOCK DETAILS — SAMPLE ONLY</span><div class="summary"><div><span>Bank</span><span>BDO (sample)</span></div><div><span>Account name</span><span>The Happy Print Haus</span></div><div><span>Account no.</span><span>0000-0000-0000</span></div><div class="g"><span>Amount</span><span>${PESO(T.t)}</span></div></div>
+      <div class="fg"><div class="full"><label>Reference number of your transfer</label><input id="bref" placeholder="e.g. 123456789"></div></div><div class="err" id="err"></div>
+      <button class="btn k" style="width:100%;justify-content:center;margin-top:8px" onclick="payBank()">I've sent the payment</button>`;
+  } else {
+    inner=`<div class="summary"><div><span>Payment</span><span>Cash on pickup</span></div><div><span>Pickup at</span><span>94 San Leonardo St., Laguna Bel-Air 2</span></div><div class="g"><span>Pay at pickup</span><span>${PESO(T.t)}</span></div></div>
+      <p style="font-weight:700;font-size:14px;color:#555">We'll text you once your order is ready. For custom jobs, a 50% down payment may be requested before printing.</p>
+      <button class="btn k" style="width:100%;justify-content:center;margin-top:12px" onclick="processing()">Place Order</button>`;
+  }
+  MB.innerHTML = prog(3)+inner+`<button class="btn" style="margin-top:14px" onclick="step2()">← Change payment</button>`;
+}
+function otp(){
+  const n=document.getElementById('wnum').value.replace(/\s|-/g,'');
+  if(!/^(09|\+639)\d{9}$/.test(n)) return document.getElementById('err').textContent='Enter a valid mobile number.';
+  const p=PAY[order.pay];
+  MB.querySelector('.wbody').innerHTML=`<span class="mock">MOCK PAYMENT</span><div style="font-weight:800;margin:8px 0">Enter the 6-digit code sent to ${n}</div><div style="font-size:12px;color:#888;font-weight:700">(Demo: any 6 digits will work)</div>
+    <input id="otpv" maxlength="6" placeholder="••••••"><div class="err" id="err"></div>
+    <button class="btn" style="width:100%;justify-content:center;margin-top:8px;background:${p.col};color:#fff" onclick="if(/^\\d{6}$/.test(otpv.value))processing();else err.textContent='Please enter 6 digits.'">Confirm Payment ${PESO(totals().t)}</button>`;
+}
+function payCard(){
+  const n=cardn.value.replace(/\s/g,''), er=document.getElementById('err');
+  if(!/^\d{15,16}$/.test(n)) return er.textContent='Enter a valid card number.';
+  if(!/^(0[1-9]|1[0-2])\/\d{2}$/.test(cardx.value)) return er.textContent='Expiry must be MM/YY.';
+  if(!/^\d{3,4}$/.test(cardc.value)) return er.textContent='Enter the CVC.';
+  processing();
+}
+function payBank(){ if(bref.value.trim().length<5) return document.getElementById('err').textContent='Please enter your reference number.'; processing(); }
+function processing(){
+  MT.textContent='Processing…';
+  MB.innerHTML=`<div style="text-align:center;padding:30px 0"><div class="spinner"><i></i><i></i><i></i></div><h3 style="font-size:20px">Mixing the inks…</h3><p style="font-weight:700;color:#666">Confirming your payment</p></div>`;
+  setTimeout(done,2200);
+}
+function done(){
+  const T=totals(), id='THPH-'+Date.now().toString().slice(-6), p=PAY[order.pay];
+  const paid = order.pay!=='cash';
+  MT.textContent='Order Confirmed!';
+  MB.innerHTML=`<div class="success"><div class="big">🎉</div><h2 style="font-size:26px">Salamat, ${order.name.split(' ')[0]}!</h2>
+    <p style="font-weight:700;color:#555;margin-top:6px">Your order is in the Haus. We'll send a digital proof to ${order.phone} before we print.</p>
+    <div class="receipt"><div><span>Order no.</span><b>${id}</b></div><div><span>Payment</span><span>${p.n} — ${paid?'PAID (mock)':'Pay on pickup'}</span></div>
+    ${paid&&order.pay!=='bank'?`<div><span>Reference</span><span>${Math.floor(1e12+Math.random()*9e12)}</span></div>`:''}
+    <div><span>Fulfilment</span><span>${DEL[order.del].n}</span></div>
+    <hr style="border:none;border-top:2px dashed #000000;margin:8px 0">
+    ${cart.map(i=>{const pp=P.find(x=>x.id===i.id);return `<div><span>${i.q}× ${pp.n}</span><span>${PESO(i.price*i.q)}</span></div>`}).join('')}
+    <div><span>Delivery</span><span>${T.f?PESO(T.f):'FREE'}</span></div><div style="font-family:Bungee;font-size:18px"><span>TOTAL</span><span>${PESO(T.t)}</span></div></div>
+    <button class="btn k" onclick="closeModal()">Back to the Haus 🏠</button></div>`;
+  cart=[]; save(); updateCart();
+  for(let i=0;i<4;i++) setTimeout(()=>burst(innerWidth/2,innerHeight/3,26),i*250);
+}
+
+/* custom form */
+const fileIn=document.getElementById('file'), drop=document.getElementById('drop');
+fileIn.onchange=()=>{ if(fileIn.files[0]) drop.firstChild.textContent='✅ '+fileIn.files[0].name+' '; };
+['dragover','dragenter'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.style.background='#ffd1e5'}));
+drop.addEventListener('drop',e=>{e.preventDefault();drop.style.background='';const f=e.dataTransfer.files[0]; if(f) drop.firstChild.textContent='✅ '+f.name+' ';});
+document.getElementById('customForm').onsubmit=e=>{
+  e.preventDefault();
+  toast(`📨 Thanks ${cfName.value.split(' ')[0]}! Quote request sent (demo). We'll message ${cfPhone.value} soon.`);
+  burst(innerWidth/2,innerHeight/2,24); e.target.reset(); drop.firstChild.textContent='📎 Click or drop your design file here';
+};
+
+/* fx */
+let tt; function toast(m){ const t=document.getElementById('toast'); t.textContent=m; t.classList.add('show'); clearTimeout(tt); tt=setTimeout(()=>t.classList.remove('show'),2600); }
+function burst(x,y,n){ const cols=['#16b0ef','#e70181','#f8f210','#000000'];
+  for(let i=0;i<n;i++){ const d=document.createElement('i'); d.className='conf'; d.style.background=cols[i%4]; d.style.left=x+'px'; d.style.top=y+'px'; document.body.appendChild(d);
+    const a=Math.random()*Math.PI*2, v=80+Math.random()*160;
+    d.animate([{transform:'translate(0,0) scale(1)',opacity:1},{transform:`translate(${Math.cos(a)*v}px,${Math.sin(a)*v+120}px) scale(.3)`,opacity:0}],{duration:900+Math.random()*500,easing:'cubic-bezier(.2,.7,.4,1)'}).onfinish=()=>d.remove(); } }
+const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){e.target.classList.add('in'); io.unobserve(e.target);} }),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+render(); updateCart();
+</script>
+</body>
+</html>
